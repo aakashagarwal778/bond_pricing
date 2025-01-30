@@ -41,3 +41,20 @@ def bond_pricing(face_value, coupon_rate, freq, yield_to_maturity, purchase_date
     payments_columns = ["Payment Date", "Coupon", "Present Value"]
     payments_df = pd.DataFrame(payments_data, payments_columns)
     payments_df = payments_df.transpose()
+
+    pv_times_t = []
+    for x, y in zip(pv_rows, t_list):
+        pv_times_t.append(x * y)
+
+    tsquared = []
+    for x in t_list:
+        tsquared.append(x ** 2)
+
+    pv_times_t_squared = []
+    for x, y in zip(pv_times_t, tsquared):
+        pv_times_t_squared.append(x * y)
+
+    calculations_data = [t_list, pv_times_t, tsquared, pv_times_t_squared]
+    calculations_columns = ["t", "PV * t", "t^2", "PV * t^2"]
+    calculations_df = pd.DataFrame(calculations_data, calculations_columns)
+    calculations_df = calculations_df.transpose()

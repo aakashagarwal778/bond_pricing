@@ -58,3 +58,24 @@ def bond_pricing(face_value, coupon_rate, freq, yield_to_maturity, purchase_date
     calculations_columns = ["t", "PV * t", "t^2", "PV * t^2"]
     calculations_df = pd.DataFrame(calculations_data, calculations_columns)
     calculations_df = calculations_df.transpose()
+
+    if freq == 1:
+        last_coupon_date = next_coupon_date.replace(year=(next_coupon_date.year - 1))
+    elif freq == 2:
+        last_coupon_date = next_coupon_date - relativedelta(months=6)
+
+    accrued_interests = np.round((purchase_date - last_coupon_date).days * coupon_rate * face_value / 365, 2)
+    dirty_price = np.round(sum(payments_df["Present Value"]), 2)
+    clean_price = np.round(dirty_price - accrued_interests, 2)
+    mc_duration = np.round(sum(calculations_df["PV * t"]) / clean_price, 2)
+    m_duration = np.round(mc_duration / (1 + yield_to_maturity), 2)
+    convexity = np.round(sum(calculations_df["PV * t^2"]) / clean_price, 2)
+
+    pricing_data = [dirty_price, accrued_interests, clean_price, mc_duration, m_duration, convexity]
+    pricing_columns = ["Dirty Price", "Accrued Interests", "Clean Price", "Macaulay Duration", "Modified Duration",
+                       "Convexity"]
+
+    pricing_df = pd.DataFrame(pricing_data, pricing_columns)
+
+    return payments_df, pricing_df
+

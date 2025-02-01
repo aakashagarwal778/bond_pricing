@@ -79,3 +79,21 @@ def bond_pricing(face_value, coupon_rate, freq, yield_to_maturity, purchase_date
 
     return payments_df, pricing_df
 
+# Example usage
+face_value = 1000
+coupon_rate = 0.02125
+freq = 1
+yield_to_maturity = 0.04
+purchase_date = "2024-09-15"
+next_coupon_date = "2024-09-29"
+maturity_date = "2029-09-29"
+
+payments_df, pricing_df = bond_pricing(face_value, coupon_rate, freq, yield_to_maturity, purchase_date, next_coupon_date, maturity_date)
+
+print("Payments Data:")
+print(payments_df)
+print("\n")
+
+print("Pricing Data:")
+print(pricing_df)
+print("\n")

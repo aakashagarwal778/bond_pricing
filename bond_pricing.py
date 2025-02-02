@@ -91,9 +91,32 @@ maturity_date = "2029-09-29"
 payments_df, pricing_df = bond_pricing(face_value, coupon_rate, freq, yield_to_maturity, purchase_date, next_coupon_date, maturity_date)
 
 print("Payments Data:")
+print("Payments Data:")
 print(payments_df)
 print("\n")
 
 print("Pricing Data:")
 print(pricing_df)
+print("\n")
+
+
+def bond_price_fluctuation(change_in_ytm):
+
+    modified_duration = pricing_df.iloc[4, 0]
+    convexity = pricing_df.iloc[5, 0]
+    clean_price = pricing_df.iloc[2, 0]
+
+    change_in_bond_price = np.round((-modified_duration * change_in_ytm) + 0.5 * convexity * (change_in_ytm / 100) ** 2 * 100, 4)
+    new_bond_price = np.round(clean_price * (1 + change_in_bond_price), 2)
+
+    fluctuation_data = [change_in_ytm, change_in_bond_price, new_bond_price]
+    fluctuation_columns = ["Change in YTM", "Change in Bond Price", "New Bond Price"]
+    bond_price_fluctuation_df = pd.DataFrame(fluctuation_data, fluctuation_columns)
+
+    return bond_price_fluctuation_df
+
+bond_price_fluctuation_df = bond_price_fluctuation(0.01)
+
+print("Bond Price Fluctuation Data:")
+print(bond_price_fluctuation_df)
 print("\n")

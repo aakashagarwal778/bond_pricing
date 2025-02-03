@@ -4,9 +4,9 @@ This repository provides a Python implementation for bond pricing and risk analy
 
 ## Features  
 
-- Computes **dirty price** and **clean price** based on bond cash flows.  
-- Calculates **accrued interest** using coupon frequency (annual/semi-annual).  
-- Determines **Macaulay duration, modified duration, and convexity** for risk assessment.  
+- Computes **"dirty price"** and **"clean price"** based on bond cash flows.  
+- Calculates **"accrued interest"** using coupon frequency (annual/semi-annual).  
+- Determines **"Macaulay duration", "modified duration", and "convexity"** for risk assessment.  
 - Utilizes present value calculations for accurate pricing.  
 
 ## Output  
